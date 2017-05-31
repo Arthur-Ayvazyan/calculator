@@ -1,0 +1,288 @@
+
+html, body{
+    margin: 0;
+    padding: 0;
+	position: relative;
+	height: 100%;
+	width: 100%;
+    background: #000;
+    overflow: hidden;
+    font-family: 'Josefin Sans', sans-serif;
+}
+button:focus {
+    outline: none;
+}
+
+::-webkit-input-placeholder {
+    font-size: 35px;
+    color: #a80000;
+   
+}
+::-moz-placeholder {
+    font-size: 35px;
+    color: #a80000;
+ 
+}
+:-moz-placeholder {
+    font-size: 35px;
+    color: #a80000;
+
+}
+:-ms-input-placeholder {
+    font-size: 35px;
+    color: #a80000;
+}
+.wrapper{
+    width: 100%;
+    height: 100%;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4px;
+
+}
+#calculator{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+	width: 570px;
+	height: 630px;
+    min-width: 310px;
+    min-height: 550px;
+	border: 2px solid black;
+	text-align: center;
+	background: #000; 
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: space-around;
+    -moz-justify-content: space-around;
+    -ms-justify-content: space-around;
+    -o-justify-content: space-around;
+    justify-content: space-around;
+}
+.display{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    width: 99%;
+    height: 10%;
+    margin-top: 5px;
+    box-shadow: 0px -1px 25px red;
+    overflow: hidden;
+}
+#display{
+    display: flex;
+    width: 100%;
+    border: none;
+    text-align: right;
+    font: 35px bold;
+    color: #a80000;
+    background: none;
+    margin-left: -25px;
+
+
+}
+.button,.math,.zero, .buttond{
+	width: 24%;
+    height: 17%;
+    box-shadow: 0px 0px 25px red;
+    background-color: #000;
+    cursor: pointer;
+    color: #ffe0e0;
+    border: none;
+    font-size: 25px;
+    color: #a80000;
+}
+
+#power{
+    font-size: 18px;    
+}
+#equal{
+	width: 49%;
+    height: 17%;
+}
+
+@media only screen and (max-width:1024px) {
+    #calculator{
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+    }
+     #calculator{
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+
+    }
+    .button,.math,.zero, .buttond{
+        width: 24.5%;
+        height: 17%;
+        font-size: 35px;
+    }
+    #equal{
+        width: 49.6%;
+        height: 17%;
+        font-size: 35px;
+    }
+    #display{
+        font-size: 35px;
+    }
+    .display{
+        width: 100%;
+        box-shadow: 0px -4px 10px red;
+    }
+    #power{
+        font-size: 25px;
+    }
+}
+
+@media only screen and (max-width:768px), {
+    #calculator{
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+    }
+     #calculator{
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+
+    }
+    .button,.math,.zero, .buttond{
+        width: 24.5%;
+        height: 17%;
+        font-size: 35px;
+    }
+    #equal{
+        width: 49.6%;
+        height: 17%;
+        font-size: 35px;
+    }
+    .display{
+        width: 100%;
+        box-shadow: 0px -4px 10px red;
+    }
+    #display{
+        font: 50px bold;
+    }
+    #power{
+        font-size: 25px;
+    }
+    ::-webkit-input-placeholder {
+        font-size: 50px;
+    }
+    ::-moz-placeholder {
+        font-size: 50px;
+     
+    }
+    :-moz-placeholder {
+        font-size: 50px;
+    
+    }
+    :-ms-input-placeholder {
+        font-size: 50px;
+    }
+}
+@media only screen and (max-width:740px) {
+    #calculator{
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+
+    }
+    .button,.math,.zero, .buttond{
+        width: 24.8%;
+        height: 16.1%;
+        font-size: 25px;
+        box-shadow: 6px 10px 25px red;
+    }
+    #equal{
+        width: 49.8%;
+        height: 16.1%;
+        font-size: 25px;
+        box-shadow: 6px 10px 25px red;
+    }
+    .display{
+        width: 100%;
+        box-shadow: 0px -4px 26px red;
+    }
+    #display{
+        font: 25px bold;
+        margin-left: -15px;
+    }
+    #power{
+        font-size: 17px;
+    }
+    ::-webkit-input-placeholder {
+        font-size: 25px;
+    }
+    ::-moz-placeholder {
+        font-size: 25px;
+     
+    }
+    :-moz-placeholder {
+        font-size: 25px;
+    
+    }
+    :-ms-input-placeholder {
+        font-size: 25px;
+    }
+}
+@media only screen and (max-width:480px) {
+    .wrapper{
+        align-items: center;
+    }
+    #calculator{
+        width: 100%;
+        height: 100%;
+    }
+    #power{
+        font-size: 20px;
+    }
+    .display{
+        width: 100%;
+        box-shadow: 0px -4px 10px red;
+    }
+    #display{
+        font: 35px bold;
+        margin-left: -15px;
+    }
+    .button,.math,.zero, .buttond{
+        width: 24.5%;
+        height: 17%;
+        box-shadow: 1px 3px 25px red;
+        font-size: 30px;
+    }
+    #equal{
+        width: 49.6%;
+        height: 17%;
+        box-shadow: 1px 3px 25px red;
+        font-size: 30px;
+    }
+
+    ::-webkit-input-placeholder {
+        font-size: 35px;
+    }
+    ::-moz-placeholder {
+        font-size: 35px;
+     
+    }
+    :-moz-placeholder {
+        font-size: 35px;
+    
+    }
+    :-ms-input-placeholder {
+        font-size: 35px;
+    }
+}
