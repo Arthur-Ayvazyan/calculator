@@ -16,28 +16,31 @@ var display = document.getElementById('display'),
 window.onkeydown = function(e) {
 	var last = display.value.length-1,
      	index = display.value.charAt(last);
+
 	(e.keyCode === 8) ? backspace() : '';
+
 	if(display.value.length > 20){
 		return;
 	}
-	(e.keyCode === 13) ? answer() : '';
-	(e.keyCode === 48  || e.keyCode === 96)  ? zeroAdd() : '';	
-	(e.keyCode === 49  || e.keyCode === 97)  ? addToScreen('1') : 	
-	(e.keyCode === 50  || e.keyCode === 98)  ? addToScreen('2') : 	
-	(e.keyCode === 51  || e.keyCode === 99)  ? addToScreen('3') :	
-	(e.keyCode === 52  || e.keyCode === 100) ? addToScreen('4') :	
-	(e.keyCode === 53  || e.keyCode === 101) ? addToScreen('5') :	
-	(e.keyCode === 54  || e.keyCode === 102) ? addToScreen('6') :	
-	(e.keyCode === 55  || e.keyCode === 103) ? addToScreen('7') :	
-	(e.keyCode === 56  || e.keyCode === 104) ? addToScreen('8') :
-	(e.keyCode === 57  || e.keyCode === 105) ? addToScreen('9') : 
-	(e.keyCode === 190 || e.keyCode === 110) ? dotAdd() : '';
+
+	(e.key == '=' || e.key == 'Enter') ? answer() : '';
+	(e.key == 0) ? zeroAdd() : '';	
+	(e.key == 1) ? numberAdd(e.key) : 	
+	(e.key == 2) ? numberAdd(e.key) : 	
+	(e.key == 3) ? numberAdd(e.key) :	
+	(e.key == 4) ? numberAdd(e.key) :	
+	(e.key == 5) ? numberAdd(e.key) :	
+	(e.key == 6) ? numberAdd(e.key) :	
+	(e.key == 7) ? numberAdd(e.key) :	
+	(e.key == 8) ? numberAdd(e.key) :
+	(e.key == 9) ? numberAdd(e.key) : 
+	(e.key == '.' ) ? dotAdd() : '';
 
 	if(index >= 0 || index <=9){
-		(e.keyCode === 107 || e.keyCode === 187) ? math[0].click() :	
-		(e.keyCode === 109 || e.keyCode === 189) ? math[1].click() :	
-		(e.keyCode === 191 || e.keyCode === 111) ? math[3].click() :	
-		(e.keyCode === 106) ? math[2].click() : '';
+		(e.key == '+') ? math[0].click() :	
+		(e.key == '-') ? math[1].click() :	
+		(e.key == '*') ? math[2].click() :	
+		(e.key == '/') ? math[3].click() : '';
 	} 	
 }
 
@@ -88,15 +91,18 @@ function zeroAdd() {
 		}
 }
 
-function numberAdd() {
+function numberAdd(value) {
+	var last = display.value.length-1;
 	if(display.value.length > 20){
 		return;
 	}
-	var value = this.value;
-	var last = display.value.length-1;
 	if(value == 'c' || value == '<--' || value == 'X^3' || value == '=') {
 		return;
 	}
+	if((display.value.length > 1) && (display.value[last] == 0) && (display.value[last - 1] != '.' )){
+		return;
+	}
+
 	addToScreen(value);
 }
 
@@ -186,6 +192,8 @@ for(var i = 0; i < math.length; i++) {
 	math[i].addEventListener('click', mathAdd);
 }
 for(var i = 0; i < buttons.length; i++) {
-	buttons[i].addEventListener('click', numberAdd);
+	buttons[i].onclick = function(){
+		numberAdd(this.value);
+}
 
 }
