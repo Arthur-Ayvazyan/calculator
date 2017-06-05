@@ -14,9 +14,10 @@ var display = document.getElementById('display'),
 	
 
 window.onkeydown = function(e) {
+		
 	var last = display.value.length-1,
      	index = display.value.charAt(last);
-
+     
 	(e.keyCode === 8) ? backspace() : '';
 
 	if(display.value.length > 20){
@@ -76,30 +77,39 @@ function dotAdd() {
 }
 
 function zeroAdd() {
+	var last = display.value.length-1,
+	lastIndex = display.value[last],
+    lastIndexPrev = display.value[last - 1];
 	if(display.value.length > 20){
 		return;
 	}
-	var last = display.value.length-1;
-	if(display.value[last] == '/' ) {
+	else if( (display.value[last] == 0) && (lastIndexPrev == '/' || lastIndexPrev == '+' || lastIndexPrev == '-' || lastIndexPrev == '*'))
+	{
 		return;
 	}
-		if(display.value[last-1] == '.' || (display.value[last-1] > 0 || display.value[last-1] <=9) ) {
-			addToScreen('0');
-		}
-		if(display.value.length == 1 && display.value != 0) {
-			addToScreen('0');
-		}
-}
+
+	if(display.value[last-1] == '.' || (display.value[last-1] > 0 || display.value[last-1] <=9) ) {
+		addToScreen('0');
+	}
+	else if((display.value.length == 1 && display.value != 0) || (display.value[last] >= 1 || display.value[last] <= 9)) {
+		addToScreen('0');
+	}
+} 
 
 function numberAdd(value) {
-	var last = display.value.length-1;
+	var last = display.value.length-1,
+	lastIndex = display.value[last],
+    lastIndexPrev = display.value[last - 1];
 	if(display.value.length > 20){
 		return;
 	}
-	if(value == 'c' || value == '<--' || value == 'X^3' || value == '=') {
+	else if(value == 'c' || value == '<--' || value == 'X^3' || value == '=') {
 		return;
 	}
-	if((display.value.length > 1) && (display.value[last] == 0) && (display.value[last - 1] != '.' )){
+	else if((display.value.length > 1) && (lastIndex == 0) && 
+	   (lastIndexPrev  == '/' || lastIndexPrev  == '+' ||
+	    lastIndexPrev  == '-' || lastIndexPrev  == '*'))
+	{
 		return;
 	}
 
@@ -107,16 +117,32 @@ function numberAdd(value) {
 }
 
 function mathAdd(){
-	if(display.value.length > 20){
+	if(display.value.length > 19){
 		return;
 	}
 	var last = display.value.length-1,
 	value = this.value,
-	arr = display.value;
+	arr = display.value,
+    lastIndex = display.value[last],
+    lastIndexPrev = display.value[last - 1];
 
-	if(display.value == 0 || display.value[last] == '.') {
+	if(display.value === 'Error'){
+		display.value = '0';
+	}
+	if((lastIndex == '+' || lastIndex == '/' || lastIndex == '*') &&
+	   (lastIndexPrev >= 0 || lastIndexPrev <= 9) && value == '-')
+		{
+			addToScreen('-');
+		}
+
+	if(lastIndex == '.' || lastIndex == '/' || lastIndex == '+' ||
+	   lastIndex == '-' || lastIndex == '*') {
 		return;
 	}
+	else if(display.value == 0 && (value== '/' || value == '*')) {
+		return;
+	}
+
 	for(var i = 0; i < arr.length; i++) {
 		if(arr[i] == '+' || arr[i] == '-' || arr[i] == '*' || arr[i] == '/') {
 			answer();
@@ -131,18 +157,33 @@ function mathAdd(){
 }
 
 function answer(){
+	if(display.value === 'Error') return;
 	try {
   		x = display.value;
 		x = eval(x);
-		display.value = x;
-		return x;
+		(x === Infinity || x === -Infinity || x === 'Error') ? x = 'Error' : '';
+		var str = x.toString();
+		if(str.indexOf('.') != -1){
+			var dott = str.indexOf('.');
+			dott += 3;
+			str = str.substring(0, dott);
+			display.value = str;
+		}
+		else{
+			display.value = x;
+			return x;
+		}
 	} 
 	catch (err) {
+		display.value = 'Error';
 		removeLastElem();
 	}
 }
 
 function removeLastElem(){
+	if(display.value === 'Error'){
+		display.value = '';
+	}
 	var number = display.value;
 	var last = number.length-1;
 	var newNumber = number.substring(0, last);
@@ -176,9 +217,11 @@ function power(){
 	if(display.value.length > 20){
 		return;
 	}
+
 	x = display.value;
 	x = eval(x);
 	x = Math.pow(x, 3);
+	(x === Infinity || x === -Infinity) ? x = 'Error' : '';
 	display.value = x;
 }
 
